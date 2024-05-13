@@ -1,0 +1,42 @@
+pipeline{
+    agent any
+    parameters{
+		string(name: 'APELLIDO', description:'Ingrese su apellido')
+		password(name:'CONTRASEÑA', description:'Ingrese su contraseña')
+	}
+	environment{
+		INSTAGRAM_IVAN ="ivanceteeee"
+	}
+	stages{
+	    stage("Saludo 1"){
+	        steps{
+	            echo "Hola desde saludos 1"
+	        }
+	    }
+	    stage("Saludo 2"){
+		    steps{
+			    echo "Hola desde saludo 2, paso 1"
+			    echo "Hola desde saludo 2, paso 2"
+		    }
+		}
+	    stage("Imprimir variable de entorno"){
+		    steps{
+			    echo "Mi Instagram ${INSTAGRAM_IVAN}"
+	    	}
+    	}
+	    stage("Cambio valor variable entorno"){
+		    steps{
+			    script{
+				    INSTAGRAM_IVAN="@Nuevo_Instagram"
+				    echo "Mi Instagram ${INSTAGRAM_IVAN}"
+			    }
+		    }
+		}
+	    stage("Imprimir parámetros"){
+		    steps{
+		    	echo "${params.APELLIDO}"
+			    echo "${params.CONTRASEÑA}"
+	        }
+	    }
+	}
+}
